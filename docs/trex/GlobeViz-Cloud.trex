@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
+  <worksheet-extension id="com.lifesciences.extensions.globe3d" extension-version="0.1.0">
+    <default-locale>en_US</default-locale>
+    <name resource-id="name"/>
+    <description>Interactive 3D globe that draws lat/long data as bars rising from the Earth's surface.</description>
+    <author name="Jeb Besecker" email="jbeseckersf@gmail.com" organization="Life Sciences" website="https://www.tableau.com"/>
+    <min-api-version>1.12</min-api-version>
+    <source-location>
+      <url>https://jebbesecker03.github.io/tableau-globe-extension/stable/index.html</url>
+    </source-location>
+    <icon>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</icon>
+    <encoding id="latitude">
+      <display-name resource-id="enc-latitude">Latitude</display-name>
+      <data-spec>
+        <data-type>numeric</data-type>
+      </data-spec>
+      <role-spec>
+        <role-type>continuous-measure</role-type>
+        <role-type>continuous-dimension</role-type>
+      </role-spec>
+      <fields max-count="1"/>
+      <encoding-icon token="letter-y"/>
+    </encoding>
+    <encoding id="longitude">
+      <display-name resource-id="enc-longitude">Longitude</display-name>
+      <data-spec>
+        <data-type>numeric</data-type>
+      </data-spec>
+      <role-spec>
+        <role-type>continuous-measure</role-type>
+        <role-type>continuous-dimension</role-type>
+      </role-spec>
+      <fields max-count="1"/>
+      <encoding-icon token="letter-x"/>
+    </encoding>
+    <encoding id="height">
+      <display-name resource-id="enc-height">Height</display-name>
+      <data-spec>
+        <data-type>numeric</data-type>
+      </data-spec>
+      <role-spec>
+        <role-type>continuous-measure</role-type>
+      </role-spec>
+      <fields max-count="1"/>
+      <encoding-icon token="size"/>
+    </encoding>
+    <encoding id="color">
+      <display-name resource-id="enc-color">Color</display-name>
+      <fields max-count="1"/>
+      <encoding-icon token="color"/>
+    </encoding>
+    <!-- Tableau allows at most 4 custom encodings; Detail and Tooltip are always on the Marks card. -->
+  </worksheet-extension>
+  <resources>
+    <resource id="name">
+      <text locale="en_US">3D Globe</text>
+    </resource>
+    <resource id="enc-latitude">
+      <text locale="en_US">Latitude</text>
+    </resource>
+    <resource id="enc-longitude">
+      <text locale="en_US">Longitude</text>
+    </resource>
+    <resource id="enc-height">
+      <text locale="en_US">Height</text>
+    </resource>
+    <resource id="enc-color">
+      <text locale="en_US">Color</text>
+    </resource>
+  </resources>
+</manifest>

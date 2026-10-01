@@ -1,0 +1,7 @@
+node_modules/
+# Each project's own build output; the hosted copies live in docs/.
+globe-viz/dist/
+globe-viz-experimental/dist/
+# Local release snapshots and editor/agent settings.
+releases/
+.claude/

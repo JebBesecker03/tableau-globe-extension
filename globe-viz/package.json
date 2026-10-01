@@ -1,0 +1,37 @@
+{
+  "name": "globe-viz",
+  "private": true,
+  "version": "0.1.0",
+  "description": "3D globe Viz Extension for Tableau",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "build:places": "node scripts/build-places.mjs",
+    "build:zips": "node scripts/build-zips.mjs"
+  },
+  "dependencies": {
+    "d3-geo": "^3.1.1",
+    "d3-scale": "^4.0.2",
+    "d3-scale-chromatic": "^3.1.0",
+    "globe.gl": "^2.46.2",
+    "three": "^0.186.1",
+    "topojson-client": "^3.1.0",
+    "us-atlas": "^3.0.1",
+    "world-atlas": "^2.0.2"
+  },
+  "devDependencies": {
+    "@tableau/extensions-api-types": "^1.17.0",
+    "@types/d3-geo": "^3.1.1",
+    "@types/d3-scale": "^4.0.9",
+    "@types/d3-scale-chromatic": "^3.1.0",
+    "@types/three": "^0.186.0",
+    "@types/topojson-client": "^3.1.5",
+    "i18n-iso-countries": "^7.14.0",
+    "mapshaper": "^0.7.69",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1"
+  }
+}

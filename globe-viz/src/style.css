@@ -1,0 +1,211 @@
+:root {
+  --bg: #000;
+  --panel-bg: rgba(20, 24, 32, 0.92);
+  --panel-fg: #e8ecf2;
+  --panel-border: rgba(255, 255, 255, 0.14);
+  --accent: #f28e2b;
+  font-family: system-ui, 'Segoe UI', sans-serif;
+  font-size: 13px;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+#globe {
+  position: absolute;
+  inset: 0;
+}
+
+#label-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Above the label layer. */
+#breadcrumb,
+#note,
+#settings-toggle,
+#settings-panel {
+  z-index: 6;
+}
+
+#status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+  color: var(--panel-fg);
+  background: rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-line;
+  z-index: 10;
+}
+
+#note {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  max-width: calc(100% - 16px);
+  padding: 6px 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  background: var(--panel-bg);
+  color: var(--panel-fg);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+#area-tip {
+  position: fixed;
+  z-index: 20;
+  max-width: 280px;
+  padding: 8px 10px;
+  border: 1px solid #d4d4d4;
+  border-radius: 4px;
+  background: #fff;
+  color: #333;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-line;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+
+#breadcrumb {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  max-width: calc(100% - 60px);
+  padding: 6px 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  background: var(--panel-bg);
+  color: var(--panel-fg);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#breadcrumb button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: #9cc3ff;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#breadcrumb .hint {
+  display: block;
+  color: rgba(232, 236, 242, 0.65);
+  font-size: 12px;
+}
+
+#status[hidden],
+#note[hidden],
+#area-tip[hidden],
+#breadcrumb[hidden],
+#settings-toggle[hidden],
+#settings-panel[hidden] {
+  display: none;
+}
+
+#settings-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  background: var(--panel-bg);
+  color: var(--panel-fg);
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+#settings-toggle:hover,
+#settings-toggle[aria-expanded='true'] {
+  opacity: 1;
+}
+
+#settings-panel {
+  position: absolute;
+  top: 44px;
+  right: 8px;
+  width: 210px;
+  max-height: calc(100% - 60px);
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  background: var(--panel-bg);
+  color: var(--panel-fg);
+}
+
+#settings-panel h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#settings-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#settings-panel label.row {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+#settings-panel input[type='range'],
+#settings-panel input[type='checkbox'] {
+  accent-color: var(--accent);
+}
+
+#color-info {
+  margin: 0;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+#settings-panel input[type='color'] {
+  width: 36px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  background: none;
+}
+
+#settings-panel select {
+  padding: 3px;
+  border-radius: 4px;
+  border: 1px solid var(--panel-border);
+  background: #11151c;
+  color: var(--panel-fg);
+}

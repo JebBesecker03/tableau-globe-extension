@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Globe (Experimental)</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <script src="./lib/tableau.extensions.1.latest.min.js"></script>
+  </head>
+  <body>
+    <div id="globe"></div>
+    <div id="status">Loading…</div>
+    <div id="note" hidden></div>
+    <div id="area-tip" hidden></div>
+    <nav id="breadcrumb" aria-label="Drill-down level" hidden></nav>
+    <div id="build-badge">Experimental</div>
+    <div id="legend" hidden>
+      <div class="legend-title"></div>
+      <div class="legend-ramp">
+        <span class="legend-min"></span>
+        <div class="legend-bar"></div>
+        <span class="legend-max"></span>
+      </div>
+      <ul class="legend-swatches"></ul>
+    </div>
+    <script>
+      // Plain (non-module) script so errors are visible even if the app module never runs.
+      (function () {
+        var status = document.getElementById('status');
+        function report(msg) {
+          status.hidden = false;
+          status.textContent = 'Globe error: ' + msg + '\n\n' + navigator.userAgent;
+        }
+        window.addEventListener('error', function (e) {
+          report(e.message || String(e.error));
+        });
+        window.addEventListener('unhandledrejection', function (e) {
+          report((e.reason && e.reason.message) || String(e.reason));
+        });
+        window.__globeReport = report;
+      })();
+    </script>
+
+    <button id="settings-toggle" type="button" aria-label="Globe settings" aria-expanded="false" hidden>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <path fill="currentColor" d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3.3h-4l-.3 2.6a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.3 7.3 0 0 0 1.7 1l.3 2.6h4l.3-2.6a7.3 7.3 0 0 0 1.7-1l2.5 1 2-3.5ZM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z" transform="translate(-1 0)"/>
+      </svg>
+    </button>
+
+    <form id="settings-panel" hidden>
+      <h2>Globe settings</h2>
+      <label>Map type
+        <select name="mapType">
+          <option value="points">Points (bars)</option>
+          <option value="choropleth">Choropleth (filled areas)</option>
+        </select>
+      </label>
+      <label>Fill by (choropleth)
+        <select name="fillBy"></select>
+      </label>
+      <label>Combine values when merging
+        <select name="rollup">
+          <option value="sum">Sum</option>
+          <option value="avg">Average</option>
+        </select>
+      </label>
+      <label class="row"><input type="checkbox" name="showLabels" /> Labels</label>
+      <label class="row"><input type="checkbox" name="showLegend" /> Color legend</label>
+      <label>Legend title
+        <input type="text" name="legendTitle" placeholder="Color field name" />
+      </label>
+      <p id="color-info"></p>
+      <label class="row">Single color <input type="color" name="singleColor" /></label>
+      <label>Palette for measures on Color
+        <select name="sequentialScheme">
+          <option value="Neon">Neon (blue → green)</option>
+          <option value="YlOrRd">Yellow–Orange–Red</option>
+          <option value="Blues">Blues</option>
+          <option value="Greens">Greens</option>
+          <option value="Purples">Purples</option>
+          <option value="Viridis">Viridis</option>
+          <option value="Plasma">Plasma</option>
+          <option value="Turbo">Turbo</option>
+          <option value="RdYlBu">Red–Yellow–Blue (diverging)</option>
+          <option value="RdYlGn">Red–Yellow–Green (diverging)</option>
+        </select>
+      </label>
+      <fieldset id="category-colors" hidden>
+        <legend>Category colors</legend>
+        <div class="category-list"></div>
+        <button type="button" class="reset-colors">Reset to palette</button>
+      </fieldset>
+      <label>Palette for dimensions on Color
+        <select name="categoricalScheme">
+          <option value="Neon">Neon</option>
+          <option value="Tableau10">Tableau 10</option>
+          <option value="Category10">Category 10</option>
+          <option value="Set2">Soft (Set 2)</option>
+          <option value="Dark2">Dark (Dark 2)</option>
+          <option value="Paired">Paired</option>
+        </select>
+      </label>
+      <label class="row"><input type="checkbox" name="autoRotate" /> Auto-rotate</label>
+      <label>Rotate speed <input type="range" name="rotateSpeed" min="0.1" max="3" step="0.1" /></label>
+      <label>Texture
+        <select name="texture">
+          <option value="midnight">Midnight (satellite + city lights)</option>
+          <option value="day">Blue marble</option>
+          <option value="night">Night lights</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+      <label class="row"><input type="checkbox" name="detailedEarth" /> Detailed earth (satellite)</label>
+      <label class="row"><input type="checkbox" name="neonOutlines" /> Neon outlines</label>
+      <label class="row"><input type="checkbox" name="showSun" /> Sun (eclipse glow)</label>
+      <label>Bar height <input type="range" name="barScale" min="0.2" max="3" step="0.1" /></label>
+      <label>Bar width <input type="range" name="barRadius" min="0.1" max="1.5" step="0.05" /></label>
+      <label class="row"><input type="checkbox" name="showAtmosphere" /> Atmosphere</label>
+      <button type="button" class="reset-outlines" title="Area outlines are remembered from the fullest data seen, so filters don't change them. Reset after a territory realignment.">Reset remembered outlines</button>
+    </form>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
